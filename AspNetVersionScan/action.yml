@@ -1,7 +1,7 @@
 name: "ASP Net Version Scanning"
 description: "Scans the ASP.NET version in the repository"
 inputs:
-  Urls:
+  urls:
     description: "List of URLs to scan"
     required: true
     type: array
@@ -13,7 +13,7 @@ runs:
       shell: bash
       run: |
         set -x
-        for url in ${{ inputs.Urls }}; do
+        for url in ${{ inputs.urls }}; do
           echo "Scanning URL: $url"
           url=$(echo "$url" | xargs | tr -d '\r')
           var=$(curl -s -I -k "$url" | grep -i "X-AspNet-Version" | cut -d ":" -f2 | xargs)
