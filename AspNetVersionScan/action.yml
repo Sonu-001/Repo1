@@ -14,5 +14,7 @@ runs:
       run: |
         for url in ${{ inputs.Urls }}; do
           echo "Scanning URL: $url"
-          # Add your scanning logic here
+          url=$(echo "$url" | xargs | tr -d '\r')
+          var=$(curl -s -I -k "$url/<<" | findstr "X-AspNet-Version" | cut -d ":" -f2)
+          echo "$url - $var"
         done
