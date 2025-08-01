@@ -13,13 +13,16 @@ runs:
       shell: bash
       run: |
         set -x
-        for url in ${{ inputs.urls }}; do
-          echo "Scanning URL: $url"
-          url=$(echo "$url" | xargs | tr -d '\r')
-          var=$(curl -s -I -k "$url" | grep -i "X-AspNet-Version" | cut -d ":" -f2 | xargs)
-          if [ -n "$var" ]; then
-            echo "$url - $var"
-          else
-            echo "$url - No X-AspNet-Version header found"
+        # Convert the input to individual lines and process each URL
+        echo '${{ inputs.urls }}' | while IFS= read -r url; do
+          if [ -n "$url" ]; then
+            echo "Scanning URL: $url"
+            url=$(echo "$url" | xargs | tr -d '\r')
+            var=$(curl -s -I -k "$url" | grep -i "X-AspNet-Version" | cut -d ":" -f2 | xargs)
+            if [ -n "$var" ]; then
+              echo "$url - $var"
+            else
+              echo "$url - No X-AspNet-Version header found"
+            fi
           fi
         done
