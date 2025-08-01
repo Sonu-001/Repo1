@@ -12,6 +12,7 @@ runs:
     - name: "ASP Net Version Scan"
       shell: bash
       run: |
+        set -x
         for url in ${{ inputs.Urls }}; do
           echo "Scanning URL: $url"
           url=$(echo "$url" | xargs | tr -d '\r')
