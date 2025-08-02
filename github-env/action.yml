@@ -30,7 +30,6 @@ runs:
       shell: bash
       run: |
         echo "Environment variables for ${{ inputs.env_name }}:"
-        echo "The value is ${{ env.ENV_NONPROD }}"
-        echo "${{ env.NAME }}""
+        echo "${{ env.NAME }}"
 
 
