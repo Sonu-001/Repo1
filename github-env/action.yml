@@ -23,13 +23,13 @@ runs:
         GH_TOKEN: ${{ inputs.gh_token }}
       run: |
         ENV_NONPROD=$(gh variable list --json name,value -R Sonu-001/${{ inputs.repo }} -e ${{ inputs.env_name }}) 
-        echo "$ENV_NONPROD"
+        echo "$ENV_NONPROD" >> env_var.json
         echo "$ENV_NONPROD" | jq -r '.[]|"\(.name)=\(.value)"' >> $GITHUB_ENV  
     
     - name: "Print Environment Variables"
       shell: bash
       run: |
         echo "Environment variables for ${{ inputs.env_name }}:"
-        echo "${{ env.NAME }}"
+        cat env_var.json
 
-
+    
