@@ -24,8 +24,8 @@ runs:
       run: |
         for env_val in ${{ inputs.envs }}; do
           echo "Fetching environment variables for $env_val"
-          ENV_VARS=$(gh variable list --json name,value -R ${{ inputs.repo }} -e ${{ inputs.env_val }}) 
-          echo "$ENV_VARS" >> env_val.json
+          ENV_VARS=$(gh variable list --json name,value -R ${{ inputs.repo }} -e $env_val) 
+          echo "$ENV_VARS" >> $env_val.json
           echo "$ENV_VARS" | jq -r '.[]|"\(.name)=\(.value)"' >> $GITHUB_ENV  
         done
     
