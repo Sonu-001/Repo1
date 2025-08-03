@@ -4,8 +4,8 @@ inputs:
   repo:
     description: "The repository to get the environment variable from"
     required: true
-  env_name:
-    description: "The name of the environment"
+  envs:
+    description: "List of environments"
     required: true
     type: array
   gh_token:
@@ -23,7 +23,7 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.gh_token }}
       run: |
-        for env_val in "${{ inputs.env_name }}"; do
+        for env_val in "${{ inputs.envs }}"; do
           echo "Fetching environment variables for $env_val"
         done
 
