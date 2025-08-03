@@ -22,7 +22,7 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.gh_token }}
       run: |
-        for env_val in "${{ inputs.envs }}"; do
+        for env_val in ${{ inputs.envs }}; do
           echo "Fetching environment variables for $env_val"
         done
 
