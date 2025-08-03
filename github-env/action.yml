@@ -29,10 +29,10 @@ runs:
           echo "$ENV_VARS" | jq -r '.[]|"\(.name)=\(.value)"' >> $GITHUB_ENV  
         done
     
-    # - name: "Print Environment Variables"
-    #   shell: bash
-    #   run: |
-    #     echo "Environment variables for ${{ inputs.env_name }}:"
-    #     cat env_var.json
+    - name: "Print Environment Variables"
+      shell: bash
+      run: |
+        echo "$RESOURCE_GROUP"
+        echo "$RA_BASE_URL"
 
     
