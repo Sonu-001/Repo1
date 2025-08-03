@@ -7,7 +7,6 @@ inputs:
   envs:
     description: "List of environments"
     required: true
-    type: array
   gh_token:
     description: "GitHub token for authentication"
     required: true  
