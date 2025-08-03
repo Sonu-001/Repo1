@@ -7,6 +7,7 @@ inputs:
   env_name:
     description: "The name of the environment"
     required: true
+    type: array
   gh_token:
     description: "GitHub token for authentication"
     required: true  
@@ -22,14 +23,19 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.gh_token }}
       run: |
-        ENV_VARS=$(gh variable list --json name,value -R ${{ inputs.repo }} -e ${{ inputs.env_name }}) 
-        echo "$ENV_VARS" >> env_var.json
-        echo "$ENV_VARS" | jq -r '.[]|"\(.name)=\(.value)"' >> $GITHUB_ENV  
+        for env_val in "${{ inputs.env_name }}"; do
+          echo "Fetching environment variables for $env_val"
+        done
+
+
+    #     ENV_VARS=$(gh variable list --json name,value -R ${{ inputs.repo }} -e ${{ inputs.env_name }}) 
+    #     echo "$ENV_VARS" >> env_var.json
+    #     echo "$ENV_VARS" | jq -r '.[]|"\(.name)=\(.value)"' >> $GITHUB_ENV  
     
-    - name: "Print Environment Variables"
-      shell: bash
-      run: |
-        echo "Environment variables for ${{ inputs.env_name }}:"
-        cat env_var.json
+    # - name: "Print Environment Variables"
+    #   shell: bash
+    #   run: |
+    #     echo "Environment variables for ${{ inputs.env_name }}:"
+    #     cat env_var.json
 
     
